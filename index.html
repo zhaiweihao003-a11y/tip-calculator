@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tip Calculator</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px 16px; background: #eef3ee; color: #213d36; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    main { width: 100%; max-width: 480px; padding: clamp(22px, 6vw, 40px); background: #fffefa; border: 1px solid #dce5db; border-radius: 24px; box-shadow: 0 20px 60px #284c3912; }
+    .eyebrow { margin: 0 0 12px; font-size: 12px; letter-spacing: .17em; font-weight: 700; color: #597568; }
+    h1 { margin: 0 0 10px; font-size: clamp(28px, 7vw, 36px); letter-spacing: -.04em; }
+    .intro { margin: 0 0 28px; color: #617169; line-height: 1.6; }
+    label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 650; }
+    .field { margin-bottom: 20px; }
+    input, select, button { width: 100%; min-width: 0; font: inherit; border-radius: 10px; }
+    input, select { padding: 13px 14px; border: 1px solid #b9c9bf; background: #fff; color: #213d36; }
+    input:focus-visible, select:focus-visible, button:focus-visible { outline: 3px solid #8cb6a3; outline-offset: 3px; }
+    [aria-invalid="true"] { border-color: #ae3131; }
+    button { padding: 15px; border: 0; background: #285b48; color: white; font-weight: 650; cursor: pointer; }
+    button:hover { background: #1e4939; }
+    #error { margin: 16px 0 0; padding: 12px; border: 1px solid #e7b4af; border-radius: 10px; background: #fff0ee; color: #922727; line-height: 1.5; }
+    [hidden] { display: none !important; }
+    .results { margin-top: 26px; padding: 20px; border-radius: 14px; background: #edf3ed; }
+    .results h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .12em; margin: 0 0 16px; color: #597568; }
+    dl { margin: 0; }
+    .row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; margin-top: 12px; }
+    dt { font-size: 14px; }
+    dd { margin: 0; font-weight: 650; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; min-width: 0; max-width: 100%; }
+    .total { border-top: 1px solid #cedccf; padding-top: 16px; margin-top: 16px; align-items: baseline; }
+    .total dd { font-size: 28px; }
+    .note { margin: 18px 0 0; text-align: center; font-size: 12px; color: #617169; line-height: 1.5; }
+  </style>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">A LITTLE THANK YOU</p>
+    <h1>Tip Calculator</h1>
+    <p class="intro">Work out the tip. Split the bill. Enjoy the moment.</p>
+    <form id="tip-form" novalidate>
+      <div class="field">
+        <label for="bill">Bill Amount</label>
+        <input id="bill" name="bill" type="text" inputmode="decimal" placeholder="e.g. 80.00" aria-describedby="error" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="tip">Tip Percentage</label>
+        <select id="tip" name="tip" aria-describedby="error">
+          <option value="10">10%</option>
+          <option value="15" selected>15%</option>
+          <option value="20">20%</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="people">Number of People</label>
+        <input id="people" name="people" type="text" inputmode="numeric" value="1" aria-describedby="error" autocomplete="off">
+      </div>
+      <button type="submit">Calculate</button>
+      <p id="error" role="alert" lang="zh-CN" hidden></p>
+    </form>
+    <section class="results" aria-label="Calculation results" aria-live="polite" aria-atomic="true">
+      <h2>Your bill, simplified</h2>
+      <dl>
+        <div class="row"><dt>Tip Amount</dt><dd id="tip-amount">—</dd></div>
+        <div class="row"><dt>Total Amount</dt><dd id="total-amount">—</dd></div>
+        <div class="row total"><dt>Total per Person</dt><dd id="per-person">—</dd></div>
+      </dl>
+    </section>
+    <p class="note">Amounts use the same currency as your bill.<br>Results are rounded to two decimal places.</p>
+  </main>
+</body>
+</html>
